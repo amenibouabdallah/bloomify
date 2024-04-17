@@ -1,0 +1,40 @@
+Users Table:
+
+user_id: INT(11) AUTO_INCREMENT PRIMARY KEY
+email: VARCHAR(255)
+full_name: VARCHAR(255)
+date_of_birth: DATE
+password: VARCHAR(255) (hashed)
+street_address: VARCHAR(255)
+city: VARCHAR(100)
+state: VARCHAR(100)
+postal_code: VARCHAR(20)
+country: VARCHAR(100)
+role: ENUM('admin', 'client')
+profile_picture: VARCHAR(255)
+
+
+Products Table:
+
+product_id: INT(11) AUTO_INCREMENT PRIMARY KEY
+product_name: VARCHAR(255)
+price: DECIMAL(10,2)
+product_picture: VARCHAR(255)
+Cart Table:
+
+cart_id: INT(11) AUTO_INCREMENT PRIMARY KEY
+user_id: INT(11)
+product_id: INT(11)
+
+Orders Table:
+
+order_id: INT(11) AUTO_INCREMENT PRIMARY KEY
+user_id: INT(11)
+product_id: INT(11)
+total_price: DECIMAL(10,2)
+
+
+https://gridbyexample.com/examples/example5/
+
+
+formspree.io
