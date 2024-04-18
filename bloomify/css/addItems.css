@@ -104,7 +104,7 @@ align-items: center;    background-color: #004F44;
 
 .item{
     width: 461px;
-    height: 470px;
+    height: 200px;
     background-color: #004F44;
     margin-left: 35%;
     border-radius: 10px;
@@ -123,6 +123,9 @@ align-items: center;    background-color: #004F44;
     margin-top: 51px;
     margin-bottom: 40px;
 }
+.addItems{
+  height: 64vh;
+}
 
  input[type="text"]{
     color: #004F44;
@@ -137,10 +140,22 @@ align-items: center;    background-color: #004F44;
     text-align: center;
 
 }
+input[type="file"]{
+  color: #004F44;
+  
+  border: none;
+  border-bottom: 4px solid white;
+  margin-bottom: 25px;
+  margin-left: 90px;
+  border-radius: 15px;
+  text-align: center;
+
+}
+
 .addItem{
     height: 80px;
     width: 370px;
-    margin-left: 600px;
+    margin-left: 750px;
     font-family: 'Poppins', sans-serif;
     font-size: 19px;
     font-weight: bold;

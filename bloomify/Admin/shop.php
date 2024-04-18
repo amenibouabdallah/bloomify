@@ -1,5 +1,40 @@
 <?php
 include '../config.php';
+$sql = "SELECT * FROM product";
+$result = $conn->query($sql);
+
+$products = array();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+    }
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if product_id is provided
+    if (isset($_POST['product_id'])) {
+        $product_id = $_POST['product_id'];
+        
+        // Prepare and execute SQL statement to delete the product
+        $sql = "DELETE FROM product WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $product_id);
+
+        if ($stmt->execute()) {
+            // Product deleted successfully
+            header("Location: manageShop.php"); // Redirect back to the manage shop page
+            exit();
+        } else {
+            // Error occurred while deleting product
+            echo "Error: " . $conn->error;
+        }
+    } else {
+        // Product ID not provided
+        echo "Product ID not provided.";
+    }
+} else {
+    // Invalid request method
+    echo "Invalid request method.";
+}
 ?>
 
 
@@ -37,41 +72,23 @@ include '../config.php';
             </div> 
             <h4> Manage your shop</h4>
              
-            <div class="items">
+            <?php foreach ($products as $product): ?>
                 <div class="card">
-                    <img src="../assets/image 8.png" alt="">
+                    <img src="../uploads/<?php echo $product['product_image']; ?>" alt="">
                     <div class="details">
-                        <h2>Peporemia Ginny</h2>
-                        <h2>$25</h2>
+                        <h2><?php echo $product['product_name']; ?></h2>
+                        <h2>$<?php echo $product['product_price']; ?></h2>
+                        <form action="" method="POST">
+                        <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                        <button type="submit">Delete</button>
+                    </form>
                     </div>
-                    <button><a href="#">Delete</a></button>
+                   
                 </div>
-                <div class="card">
-                    <img src="../assets/image 8.png" alt="">
-                    <div class="details">
-                        <h2>Peporemia Ginny</h2>
-                        <h2>$25</h2>
-                    </div>
-                    <button><a href="#">Delete</a></button>
-                </div>
-                <div class="card">
-                    <img src="../assets/image 8.png" alt="">
-                    <div class="details">
-                        <h2>Peporemia Ginny</h2>
-                        <h2>$25</h2>
-                    </div>
-                    <button><a href="#">Delete</a></button>
-                </div>
-                <div class="card">
-                    <img src="../assets/image 8.png" alt="">
-                    <div class="details">
-                        <h2>Peporemia Ginny</h2>
-                        <h2>$25</h2>
-                    </div>
-                    <button><a href="#">Delete</a></button>
-                </div>
+            <?php endforeach; ?>
+            <button class="Add"><a  href="./AddItems.php">Add new Item</a></button>   
+
             </div>      
-            <button class="Add">Add new Item</button>   
     </div>
 
 

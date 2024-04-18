@@ -1,5 +1,52 @@
 <?php
 include '../config.php';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form data
+    $product_name = $_POST['name'];
+    $product_price = $_POST['price'];
+
+    // Check if all required fields are provided
+    if (!empty($product_name) && !empty($product_price)) {
+        // Check if product image is uploaded
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $image = $_FILES['image']['name']; // Get the name of the uploaded image
+            $targetDirectory = "../uploads/"; // Directory to store uploaded images
+            $targetFile = $targetDirectory . basename($image); // Path to uploaded image
+            
+            // Move uploaded image to target directory
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
+                // Insert product into database
+                $sql = "INSERT INTO product (product_name, product_price, product_image) VALUES (?, ?, ?)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("sds", $product_name, $product_price, $image);
+                
+                if ($stmt->execute()) {
+                    // Product added successfully
+                    echo "Product added successfully.";
+                } else {
+                    // Error occurred while adding product
+                    echo "Error: " . $conn->error;
+                }
+            } else {
+                // Error occurred while uploading image
+                echo "Sorry, there was an error uploading your file.";
+            }
+        } else {
+            // Product image not uploaded
+            echo "Please upload an image of the product.";
+        }
+    } else {
+        // Required fields are missing
+        echo "Please provide product name and price.";
+    }
+} else {
+    // Invalid request method
+    echo "Invalid request method.";
+}
+
+// Close database connection
+$conn->close();
+?>
 ?>
 
 
@@ -32,15 +79,15 @@ include '../config.php';
             <h2>Hello Admin</h2>
             <h3>Add new Item</h3>
         </div>
-        <div class="item">
-                <button class="add">
-                    <h2>Add picture of item in here</h2>
-                    <img src="../assets/b.png" alt="">
-                </button>
+        <form action="" method="POST" enctype="multipart/form-data">
+
+       <div class="item">
+                <input type="file" name="image" accept="image/*">
                 <input type="text" name="name" placeholder="Product name">
                 <input type="text" name="price" placeholder="Product price">
             </div>
-        <button class="addItem">Add Item</button>
+        <button type="submit" class="addItem">Add Item</button>
+       </form>
     </div>
 
 

@@ -24,7 +24,7 @@ include '../config.php';
         <li><a href="#contactus">Contact Us</a></li>
         <li><a href="#aboutus">About Us</a></li>
         <li class="logo" style="float:center" >Bloomify</li>
-        <li style="float:right"><a href="../auth/signup" >Sign Up</a></li>
+        <li style="float:right"><a href="../auth/singup.php" >Sign Up</a></li>
 
     </ul>
     </div>
