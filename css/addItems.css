@@ -1,0 +1,171 @@
+@import url('https://fonts.cdnfonts.com/css/kapakana');
+/* NAV BAR*/
+body{
+    margin: 0;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #004F44;
+    display: fixed;
+    font-family: 'Poppins', sasn-serif;
+
+  }
+  
+  li {
+    float: left;
+    
+  }
+  
+  li:last-child {
+    border-right: none;
+  }
+  li:nth-child(1), li:nth-child(2), li:nth-child(3), li:nth-child(5){
+    margin-top: 2.5%;
+  }
+  li:nth-child(1), li:nth-child(2), li:nth-child(3){
+    margin-left: 2%;
+  }
+  li:nth-child(5){
+    margin-right: 2%;
+  
+  }
+  .logo{
+    color: white;
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border: none;
+    font-family: 'Kapakana', sans-serif;
+    font-size: 109px;
+    margin-left: 14%;
+
+  }
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border: none;
+
+  }
+ /*Styling the footer*/
+
+
+ .footer {
+    height: auto;
+    width: auto;
+align-items: center;    background-color: #004F44;
+  }
+
+  .footer .socialMedia{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 245px;
+    margin-left: 43%;
+    padding-top: 2%;
+  }
+
+  .footer .rights{
+    display: grid;
+    margin-left: 39%;
+    margin-top: 0.20%;
+  }
+
+  .footer .rights h2{
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: 26px;
+  }
+/* Adding Item*/
+
+.addItems .title h2{
+    font-size: 40px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bolder;
+    color: #004F44;
+    padding-top: 30px;
+    padding-left: 90px;
+    padding-bottom: 0px;
+
+}
+.addItems .title h3{
+    font-size: 27px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bolder;
+    color: black;
+    padding-left: 90px;
+
+}
+
+.item{
+    width: 461px;
+    height: 200px;
+    background-color: #004F44;
+    margin-left: 35%;
+    border-radius: 10px;
+}
+
+.item .add{
+    color: #004F44;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bolder;
+    font-size: 19px;
+    height: 212px;
+    width: 320px;
+    border-radius: 15px;
+    text-align: center;
+    margin-left: 71px;
+    margin-top: 51px;
+    margin-bottom: 40px;
+}
+.addItems{
+  height: 64vh;
+}
+
+ input[type="text"]{
+    color: #004F44;
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+    font-weight: bolder;
+    border: none;
+    border-bottom: 4px solid white;
+    margin-bottom: 25px;
+    margin-left: 90px;
+    border-radius: 15px;
+    text-align: center;
+
+}
+input[type="file"]{
+  color: #004F44;
+  
+  border: none;
+  border-bottom: 4px solid white;
+  margin-bottom: 25px;
+  margin-left: 90px;
+  border-radius: 15px;
+  text-align: center;
+
+}
+
+.addItem{
+    height: 80px;
+    width: 370px;
+    margin-left: 750px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    color: #004F44;
+    border-radius: 15px;
+}
+.addItem:hover{
+    background-color: #004F44;
+    color: white;
+}

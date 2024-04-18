@@ -1,0 +1,205 @@
+@import url('https://fonts.cdnfonts.com/css/kapakana');
+/* NAV BAR*/
+body{
+    margin: 0;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #004F44;
+    display: fixed;
+    font-family: 'Poppins', sasn-serif;
+
+  }
+  
+  li {
+    float: left;
+    
+  }
+  
+  li:last-child {
+    border-right: none;
+  }
+  li:nth-child(1), li:nth-child(2), li:nth-child(3), li:nth-child(5){
+    margin-top: 2.5%;
+  }
+  li:nth-child(1), li:nth-child(2), li:nth-child(3){
+    margin-left: 2%;
+  }
+  li:nth-child(5){
+    margin-right: 2%;
+  
+  }
+  .logo{
+    color: white;
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border: none;
+    font-family: 'Kapakana', sans-serif;
+    font-size: 109px;
+    margin-left: 20%;
+
+  }
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border: none;
+
+  }
+ /*Styling the footer*/
+
+
+ .footer {
+    height: auto;
+    width: auto;
+align-items: center;    background-color: #004F44;
+  }
+
+  .footer .socialMedia{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 245px;
+    margin-left: 43%;
+    padding-top: 2%;
+  }
+
+  .footer .rights{
+    display: grid;
+    margin-left: 39%;
+    margin-top: 0.20%;
+  }
+
+  .footer .rights h2{
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: 26px;
+  }
+
+
+  /*shop*/
+/*overall styling*/
+.shop{
+    min-height: 100vh;
+    background-color: #F3EDEE;
+}
+
+.shop h4{
+    font-family: 'Poppins', sans-serif;
+    font-size: 29;
+    margin-left: 124px;
+    font-weight: bolder;
+    margin-top: 0;
+    font-weight:normal;
+}
+.title{
+    display:grid;
+    grid-template-columns: 1020px 1020px;
+}
+.title h2{
+    font-family: 'Poppins', sans-serif;
+    color: #004F44;
+    font-weight: bold;
+    font-size: 40px;
+    margin-left: 124px;
+    margin-top: 55px;
+}
+.title a{
+   color: #004F44;
+   font-family: 'Poppins', sans-serif;
+    margin-top: 66px;
+    margin-left: 150px;
+    font-weight: bolder;
+    font-size: 24px;
+    height: 36px;
+    width: 100px;
+    text-decoration: none;
+}
+.title a:hover {
+    text-decoration: underline;
+}
+
+
+/*styling the card*/
+.shop{
+    width: 100vw;
+}
+.card img{
+    height: 360px;
+    width: 279px;
+    
+}
+
+.card .details{
+    display: grid;
+    grid-template-columns: 230px 230px;
+}
+
+.details h2{
+    font-family: 'Poppins', sans-serif;
+    color: #004F44;
+    font-weight: bolder;
+    font-size: 20px;
+
+}
+
+.card button{
+    background-color: #F3EDEE;
+    border-color: #004F44;
+    color: #004F44;
+    height: 35px;
+    width: 79px; margin-left: 40%;
+    margin-bottom: 100px;
+}
+
+.card button a{
+    color: #004F44;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bolder;
+    font-size: 16px;
+    text-decoration: none;
+
+}
+
+.card button a:hover{
+    color:#F3EDEE;
+}
+.card button:hover{
+    background-color: #004F44;
+}
+
+/* items alignment*/
+
+.items{
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    margin-left: 10%;
+}
+.shop  .Add{
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+    font-weight: bold;
+    background-color:none;
+    border-color: 4px #004F44;
+    width: 375px;
+    height: 80px;
+    margin-left: 38%;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    color: #004F44;
+}
+
+.shop .Add:hover{
+    background-color: #004F44;
+    color:white;
+}
+
+.shop .Add a{
+  text-decoration: none;
+}
