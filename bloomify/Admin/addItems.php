@@ -21,7 +21,7 @@ include '../config.php';
     <ul>
         <li><a href="#">Dashboard</a></li>
         <li><a href="#"></a></li>
-        <li><a href="#">Manage Shop </a></li>
+        <li><a href="./shop.php">Manage Shop </a></li>
         <li class="logo" style="float:center" >Bloomify</li>
         <li style="float:right"><a href="#" >Log out</a></li>
 

@@ -20,11 +20,11 @@ include '../config.php';
 <body>
     <div class="navbar">
     <ul>
-        <li><a href="#">Special treats</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="#">About Us</a></li>
+        <li><a href="#shop">Special treats</a></li>
+        <li><a href="#contactus">Contact Us</a></li>
+        <li><a href="#aboutus">About Us</a></li>
         <li class="logo" style="float:center" >Bloomify</li>
-        <li style="float:right"><a href="#" >Sign Up</a></li>
+        <li style="float:right"><a href="../auth/signup" >Sign Up</a></li>
 
     </ul>
     </div>
@@ -48,11 +48,11 @@ include '../config.php';
         </div>
     </div>
     </div>
-    <div class="shop">
+    <div class="shop" id="shop">
             <h4> Our Special Treats</h4>
             <div class="title">
             <h2> Featured</h2>
-            <a href="#" class="view" >view all</a>
+            <a href="../auth/signup" class="view" >view all</a>
             </div>   
             <div class="items">
                 <div class="card">
@@ -61,7 +61,7 @@ include '../config.php';
                         <h2>Peporemia Ginny</h2>
                         <h2>$25</h2>
                     </div>
-                    <button><a href="#">Buy</a></button>
+                    <button><a href="../auth/signup">Buy</a></button>
                 </div>
                 <div class="card">
                     <img src="../assets/image 8.png" alt="">
@@ -69,7 +69,7 @@ include '../config.php';
                         <h2>Peporemia Ginny</h2>
                         <h2>$25</h2>
                     </div>
-                    <button><a href="#">Buy</a></button>
+                    <button><a href="../auth/signup">Buy</a></button>
                 </div>
                 <div class="card">
                     <img src="../assets/image 8.png" alt="">
@@ -77,7 +77,7 @@ include '../config.php';
                         <h2>Peporemia Ginny</h2>
                         <h2>$25</h2>
                     </div>
-                    <button><a href="#">Buy</a></button>
+                    <button><a href="../auth/signup">Buy</a></button>
                 </div>
                 <div class="card">
                     <img src="../assets/image 8.png" alt="">
@@ -85,14 +85,14 @@ include '../config.php';
                         <h2>Peporemia Ginny</h2>
                         <h2>$25</h2>
                     </div>
-                    <button><a href="#">Buy</a></button>
+                    <button><a href="../auth/signup">Buy</a></button>
                 </div>
             </div>         
     </div>
     <div class="parallax">
 
     </div>
-    <div class="aboutUs">
+    <div class="aboutUs" id="aboutus">
      <div class="aboutUsText">
         <h1 style="font-family:'Poppins',sans-serif;">
             Meet the creative hands behind <span style="font-family: 'Kapakana' , sans-serif;">Bloomify</span>
@@ -103,7 +103,7 @@ include '../config.php';
      </div>
      <img src="../assets/image 14.png" alt="">
     </div>
-    <div class="contactUs">
+    <div class="contactUs" id="contactus">
         <div class="wrapper">
             <div class="contactDetailsInput">
                 <h2>CONTACT US</h2>

@@ -15,10 +15,10 @@ if ($result->num_rows == 1) {
         $_SESSION['user_id'] = $user['id'];
         if ($email === 'amenybouabdallah@gmail.com') {
             // Redirect admin to admin dashboard
-            header("Location: admin_dashboard.php");
+            header("Location: ../Admin/shop.php");
         } else {
             // Redirect clients to client dashboard
-            header("Location: client_dashboard.php");
+            header("Location:   ../Client/home.php");
         }
         exit();
     } else {
@@ -47,11 +47,11 @@ if ($result->num_rows == 1) {
 <body>
 <div class="navbar">
     <ul>
-        <li><a href="#">Special treats</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="#">About Us</a></li>
+        <li><a href="../homePage/index.php">Special treats</a></li>
+        <li><a href="../homePage/index.php">Contact Us</a></li>
+        <li><a href="../homePage/index.php">About Us</a></li>
         <li class="logo" style="float:center" >Bloomify</li>
-        <li style="float:right"><a href="#" >Sign Up</a></li>
+        <li style="float:right"><a href="./singup.php" >Sign Up</a></li>
 
     </ul>
     </div>
@@ -59,14 +59,14 @@ if ($result->num_rows == 1) {
     <div class="signin">
         <div class="wrapper">
             <h2>Sign In</h2>
-            <form class="singinData" action="signin.php" method="POST">
+            <form class="singinData" action="" method="POST">
             
             <input type="text" name="email" placeholder="Enter Your Email">
           <input type="password" name="password" placeholder="Enter Your Password">
            <input type="submit" value="Sign In">
             
         </form>
-            <h2>Don't have an account? <a href="#" style="text-decoration:none; color:#004f44">Sign Up</a></h2>
+            <h2>Don't have an account? <a href="./singup.php" style="text-decoration:none; color:#004f44">Sign Up</a></h2>
         </div>
     </div>
 

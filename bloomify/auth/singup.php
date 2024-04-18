@@ -1,7 +1,14 @@
+
 <?php
 session_start();
 
 include '../config.php';
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data
     $email = $_POST['email'];
@@ -13,69 +20,73 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $state = $_POST['state'];
     $postal = $_POST['postal'];
     
-    // File upload handling
-    $targetDirectory = "../uploads/"; // Directory to store uploaded files
-    $targetFile = $targetDirectory.basename($_FILES["image"]["name"]); // Path to uploaded file
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
-
-    // Check if image file is a actual image or fake image
-    if(isset($_POST["submit"])) {
-        $check = getimagesize($_FILES["image"]["tmp_name"]);
-        if($check !== false) {
-            echo "File is an image - " . $check["mime"] . ".";
-            $uploadOk = 1;
-        } else {
-            echo "File is not an image.";
-            $uploadOk = 0;
-        }
+    // Validate file upload
+    $uploadResult = validateFileUpload($_FILES['image']);
+    if ($uploadResult !== true) {
+        echo $uploadResult;
+        exit();
     }
 
-    // Check if file already exists
-    if (file_exists($targetFile)) {
-        echo "Sorry, file already exists.";
-        $uploadOk = 0;
-    }
+    // Move uploaded file to target directory
+    $targetFile = moveUploadedFile($_FILES['image']);
 
+    // Insert user into database
+    $insertResult = insertUserIntoDatabase($conn, $email, $fullName, $dateOfBirth, $password, $address, $city, $state, $postal, $targetFile);
+    if ($insertResult === true) {
+        header("Location: ./signin.php");
+
+    } else {
+        echo "Error: " . $insertResult;
+    }
+}
+
+function validateFileUpload($file) {
+    // Check if file is an image
+    $check = getimagesize($file['tmp_name']);
+    if ($check === false) {
+        return "File is not an image.";
+    }
+    
     // Check file size
-    if ($_FILES["image"]["size"] > 500000) {
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
+    if ($file['size'] > 500000) {
+        return "Sorry, your file is too large.";
     }
 
     // Allow only certain file formats
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    && $imageFileType != "gif" ) {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
+    $allowedFormats = ['jpg', 'jpeg', 'png', 'gif'];
+    $imageFileType = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    if (!in_array($imageFileType, $allowedFormats)) {
+        return "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     }
 
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-    // if everything is ok, try to upload file
-    } else {
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
-            echo "The file ". htmlspecialchars( basename( $_FILES["image"]["name"])). " has been uploaded.";
-            
-            // Insert user into database
-            $sql = "INSERT INTO user (email, fullname, date_of_birth, password, street_address, city, state, postal_code, profile_picture)
-                    VALUES ('$email', '$fullName', '$dateOfBirth', '$password', '$address', '$city', '$state', '$postal', '$targetFile')";
-            
-            if ($conn->query($sql) === TRUE) {
-                echo "User registered successfully";
-            } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
+    return true;
+}
 
-        } else {
-            echo "Sorry, there was an error uploading your file.";
-        }
+function moveUploadedFile($file) {
+    $targetDirectory = "../uploads/";
+    $targetFile = $targetDirectory . basename($file['name']);
+    if (move_uploaded_file($file['tmp_name'], $targetFile)) {
+        return $targetFile;
+    } else {
+        return "Sorry, there was an error uploading your file.";
+    }
+}
+
+function insertUserIntoDatabase($conn, $email, $fullName, $dateOfBirth, $password, $address, $city, $state, $postal, $profilePicture) {
+    $sql = "INSERT INTO user (email, fullname, date_of_birth, password, street_address, city, state, postal_code, profile_picture)
+            VALUES ('$email', '$fullName', '$dateOfBirth', '$password', '$address', '$city', '$state', '$postal', '$profilePicture')";
+
+    if ($conn->query($sql) === TRUE) {
+        return true;
+    } else {
+        return $conn->error;
     }
 }
 
 $conn->close();
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -94,18 +105,18 @@ $conn->close();
 <body>
 <div class="navbar">
     <ul>
-        <li><a href="#">Special treats</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="#">About Us</a></li>
+        <li><a href="../homePage/index.php">Special treats</a></li>
+        <li><a href="../homePage/index.php">Contact Us</a></li>
+        <li><a href="../homePage/index.php">About Us</a></li>
         <li class="logo" style="float:center" >Bloomify</li>
-        <li style="float:right"><a href="#" >Sign In</a></li>
+        <li style="float:right"><a href="./signin.php" >Sign In</a></li>
 
     </ul>
     </div>
     <div class="signup">
     <div class="wrapper">
         <h2>Sign Up</h2>
-        <form action="signup.php" method="POST" enctype="multipart/form-data">
+        <form action="" method="POST" enctype="multipart/form-data">
             <div class="signUpData">
                 <input type="text" name="email" placeholder="Enter your email">
                 <input type="text" name="fullName" placeholder="Enter your fullName">
@@ -119,7 +130,7 @@ $conn->close();
             </div>
             <input type="submit" name="submit" value="Sign Up">
         </form>
-        <h2>Already have an account? <a href="#">Sign In</a></h2>
+        <h2>Already have an account? <a href="./signin.php">Sign In</a></h2>
     </div>
 </div>
     <div class="footer">

@@ -1,11 +1,11 @@
 <?php
 include 'config.php';
 if(isset($_POST['submit'])){
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $fullName = mysqli_real_escape_string($conn, $_POST['fullName']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $pass = md5($_POST["password"]);
 
-    $select = " SELECT * FROM test WHERE email = '$email' && password = '$pass' ";
+    $select = " SELECT * FROM user WHERE email = '$email' && password = '$pass' ";
 
     $result = mysqli_query($conn, $select);
 
@@ -14,7 +14,7 @@ if(isset($_POST['submit'])){
         $error[] = 'user already exist!';
     }else{
         
-            $insert = " INSERT INTO test(name, email, password) VALUES('$name','$email','$pass')";
+            $insert = " INSERT INTO user(fullName, email, password) VALUES('$fullName','$email','$pass')";
             mysqli_query($conn, $insert);
             header(location:home.php);
         
@@ -44,7 +44,7 @@ if(isset($_POST['submit'])){
        };
     ?>
     <form action="" method="post">
-        <input type="text" name="name" required placeholder="enter your name">
+        <input type="text" name="fullName" required placeholder="enter your name">
         <input type="email" name="email" placeholder="enter your mail">
         <input type="password" name="password" placeholder="enter your pass">  
         <input type="submit" name="submit" vamue="submit">
