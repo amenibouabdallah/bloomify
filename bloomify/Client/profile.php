@@ -23,7 +23,7 @@ include '../config.php';
         <li><a href="#">Contact Us</a></li>
         <li><a href="#">About Us</a></li>
         <li class="logo" style="float:center" >Bloomify</li>
-        <li style="float:right"><a href="#" >Log out</a></li>
+        <li style="float:right"><a href="logout.php" >Log out</a></li>
 
     </ul>
     </div>

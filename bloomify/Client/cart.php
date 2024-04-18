@@ -1,5 +1,24 @@
 <?php
 include '../config.php';
+session_start();
+// Get user ID from session
+$user_id = $_SESSION['user_id'];
+
+// Retrieve products from the ordersss table associated with the user
+$sql = "SELECT p.product_price
+        FROM orderss AS o
+        INNER JOIN product AS p ON o.product_id = p.id
+        WHERE o.user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$total_price = 0; // Initialize total price variable
+
+while ($row = $result->fetch_assoc()) {
+    $total_price += $row['product_price']; // Add each product price to the total
+}
 ?>
 
 
@@ -18,71 +37,62 @@ include '../config.php';
 </head>
 <body>
 <ul>
-        <li><a href="#">Special treats</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="#">About Us</a></li>
+<li><a href="./home.php">Special treats</a></li>
+        <li><a href="./home.php">Contact Us</a></li>
+        <li><a href="./home.php">About Us</a></li>
         <li class="logo" style="float:center" >Bloomify</li>
-        <li style="float:right"><a href="#" >Log out</a></li>
+        <li style="float:right"><a href="../logout.php" >Log out</a></li>
 
     </ul>
     </div>
     <div class="cart">
-        <div class="title">
-            <h2>
-                My cart
-            </h2>
-
-           <div class="p">
-           <div class="cartContent">
+    <div class="title">
+        <h2>My cart</h2>
+    </div>
+    <div class="p">
+        <div class="cartContent">
+            <?php
+            // Fetch and display products from the database
+            include '../config.php';
+            
+            // Get user ID from session
+            $user_id = $_SESSION['user_id'];
+            
+            // Retrieve products from the ordersss table associated with the user
+            $sql = "SELECT p.product_name, p.product_price, p.product_image
+                    FROM orderss AS o
+                    INNER JOIN product AS p ON o.product_id = p.id
+                    WHERE o.user_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            while ($row = $result->fetch_assoc()) {
+                ?>
                 <div class="card">
                     <div class="cardImage">
-                    <img src="../assets/flower.png" alt="item">
-                    </div>            
+                        <img src="../uploads/<?php echo $row['product_image']; ?>" alt="item">
+                    </div>
                     <div class="cardDetails">
-                        <h3>Large Majesty Palm</h3>
+                        <h3><?php echo $row['product_name']; ?></h3>
                         <div class="pnb">
-                        <h2 class="price">$45</h2>
-                        <button class="cancel">Cancel Purchase</button>
+                            <h2 class="price">$<?php echo $row['product_price']; ?></h2>
                         </div>
-                    </div>        
+                    </div>
                 </div>
-                <div class="card">
-                    <div class="cardImage">
-                    <img src="../assets/flower.png" alt="item">
-                    </div>            
-                    <div class="cardDetails">
-                        <h3>Large Majesty Palm</h3>
-                        <div class="pnb">
-                        <h2 class="price">$45</h2>
-                        <button class="cancel">Cancel Purchase</button>
-                        </div>
-                    </div>        
-                </div>
-                <div class="card">
-                    <div class="cardImage">
-                    <img src="../assets/flower.png" alt="item">
-                    </div>            
-                    <div class="cardDetails">
-                        <h3>Large Majesty Palm</h3>
-                        <div class="pnb">
-                        <h2 class="price">$45</h2>
-                        <button class="cancel">Cancel Purchase</button>
-                        </div>
-                    </div>        
-                </div>
-            </div>
-
-            <div class="purchase">
-                <img src="../assets/Fast.png" alt="cart">
-                <h1>Total</h1>
-                <h2>$135</h2>
-                <button class="checkout">CHECKOUT</button>
-            </div>
-           </div>
-
+                <?php
+            }
+            ?>
+        </div>
+        <div class="purchase">
+            <img src="../assets/Fast.png" alt="cart">
+            <h1>Total</h1>
+            <h2>$<?php echo number_format($total_price, 2); ?></h2> <!-- Display the total price -->
+            <button class="checkout" ><a href="./checkout.php">CHECKOUT</a></button>
         </div>
     </div>
-
+</div>
 
     <div class="footer">
        <div class="socialMedia">

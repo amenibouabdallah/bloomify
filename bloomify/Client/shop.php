@@ -1,5 +1,38 @@
 <?php
+session_start();
+
 include '../config.php';
+$sql = "SELECT * FROM product";
+$result = $conn->query($sql);
+
+$products = array();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+    }
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get user ID from session
+    $user_id = $_SESSION['user_id'];
+    
+    // Get product ID from the form
+    $product_id = $_POST['product_id'];
+
+    // Insert the product into the cart
+    $sql = "INSERT INTO orderss (user_id, product_id) VALUES (?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ii", $user_id, $product_id);
+    
+    if ($stmt->execute()) {
+        // Product added to cart successfully
+        header("Location: ./cart.php");
+        exit();
+    } else {
+        // Error occurred while adding product to cart
+        echo "Error: " . $conn->error;
+    }
+}
+
 ?>
 
 
@@ -18,11 +51,11 @@ include '../config.php';
 </head>
 <body>
 <ul>
-        <li><a href="#">Special treats</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="#">About Us</a></li>
+        <li><a href="./home.php">Special treats</a></li>
+        <li><a href="./home.php">Contact Us</a></li>
+        <li><a href="./home.php">About Us</a></li>
         <li class="logo" style="float:center" >Bloomify</li>
-        <li style="float:right"><a href="#" >Log out</a></li>
+        <li style="float:right"><a href="../logout.php" >Log out</a></li>
 
     </ul>
     </div>
@@ -33,38 +66,25 @@ include '../config.php';
             <h2> Featured</h2>
             </div>   
             <div class="items">
+               
+            <?php foreach ($products as $product): ?>
                 <div class="card">
-                    <img src="../assets/image 8.png" alt="">
+                    <img src="../uploads/<?php echo $product['product_image']; ?>" alt="">
                     <div class="details">
-                        <h2>Peporemia Ginny</h2>
-                        <h2>$25</h2>
+                        <h2><?php echo $product['product_name']; ?></h2>
+                        <h2>$<?php echo $product['product_price']; ?></h2>
+                        <form action="" method="POST">
+                        <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                        <form action="" method="POST">
+    <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+    <button type="submit">Buy</button>
+</form>
+                    </form>
                     </div>
-                    <button><a href="#">Buy</a></button>
+                   
                 </div>
-                <div class="card">
-                    <img src="../assets/image 8.png" alt="">
-                    <div class="details">
-                        <h2>Peporemia Ginny</h2>
-                        <h2>$25</h2>
-                    </div>
-                    <button><a href="#">Buy</a></button>
-                </div>
-                <div class="card">
-                    <img src="../assets/image 8.png" alt="">
-                    <div class="details">
-                        <h2>Peporemia Ginny</h2>
-                        <h2>$25</h2>
-                    </div>
-                    <button><a href="#">Buy</a></button>
-                </div>
-                <div class="card">
-                    <img src="../assets/image 8.png" alt="">
-                    <div class="details">
-                        <h2>Peporemia Ginny</h2>
-                        <h2>$25</h2>
-                    </div>
-                    <button><a href="#">Buy</a></button>
-                </div>
+            <?php endforeach; ?>
+           </div>
             </div>         
     </div>
     <div class="footer">

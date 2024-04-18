@@ -18,11 +18,11 @@ include '../config.php';
 </head>
 <body>
 <ul>
-        <li><a href="#">Special treats</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="#">About Us</a></li>
+<li><a href="./home.php">Special treats</a></li>
+        <li><a href="./home.php">Contact Us</a></li>
+        <li><a href="./home.php">About Us</a></li>
         <li class="logo" style="float:center" >Bloomify</li>
-        <li style="float:right"><a href="#" >Log out</a></li>
+        <li style="float:right"><a href="../logout.php" >Log out</a></li>
 
     </ul>
     <div class="checkout">
@@ -36,11 +36,10 @@ include '../config.php';
                 <input class="date" type="text" placeholder="EXPIRY DATE">
                 <input type="text" class="cvv" placeholder="CVV">
             </div>
-            <input class="btn" type="submit" value="PAY">
+            <button class="btn"><a href="./home.php">PAY</a></button>
         </div>
         <div class="g2">
             <img src="../assets/wallet.png" alt="">
-            <h1 class="total">$135</h1>
         </div>
         </div>
     </div> 

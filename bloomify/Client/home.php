@@ -1,5 +1,14 @@
 <?php
 include '../config.php';
+$sql = "SELECT * FROM product LIMIT 3";
+$result = $conn->query($sql);
+
+$products = array();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+    }
+}
 ?>
 
 
@@ -20,11 +29,11 @@ include '../config.php';
 <body>
     <div class="navbar">
     <ul>
-        <li><a href="#">Special treats</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="#">About Us</a></li>
+    <li><a href="#shop">Special treats</a></li>
+        <li><a href="#contactus">Contact Us</a></li>
+        <li><a href="#aboutus">About Us</a></li>
         <li class="logo" style="float:center" >Bloomify</li>
-        <li style="float:right"><a href="#" >Log out</a></li>
+        <li style="float:right"><a href="../logout.php" >Log out</a></li>
 
     </ul>
     </div>
@@ -33,8 +42,8 @@ include '../config.php';
         <h3>Happiness blooms from within</h3>
         <p>Our environment, the world in which we live and work, is a mirror of our attitudes and expectations.</p>
         <div class="buttons">
-<button class="b1"><a href="#" class="shop">Shop Now</a></button> 
-           <a href="#" class="explore">Explore plants <img src="../assets/Arrow 1.png" alt=""></a>
+<button class="b1"><a href="./shop.php" class="shop">Shop Now</a></button> 
+           <a href="#shop" class="explore">Explore plants <img src="../assets/Arrow 1.png" alt=""></a>
         </div>
     </div>
     <div class="gallery">
@@ -52,41 +61,23 @@ include '../config.php';
             <h4> Our Special Treats</h4>
             <div class="title">
             <h2> Featured</h2>
-            <a href="#" class="view" >view all</a>
+            <a href="./shop.php" class="view" >view all</a>
             </div>   
             <div class="items">
+            <?php foreach ($products as $product): ?>
                 <div class="card">
-                    <img src="../assets/image 8.png" alt="">
+                    <img src="../uploads/<?php echo $product['product_image']; ?>" alt="">
                     <div class="details">
-                        <h2>Peporemia Ginny</h2>
-                        <h2>$25</h2>
+                        <h2><?php echo $product['product_name']; ?></h2>
+                        <h2>$<?php echo $product['product_price']; ?></h2>
+                        <form action="" method="POST">
+                        <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                        <button ><a href="./shop.php">BUY</a></button>
+                    </form>
                     </div>
-                    <button><a href="#">Buy</a></button>
+                   
                 </div>
-                <div class="card">
-                    <img src="../assets/image 8.png" alt="">
-                    <div class="details">
-                        <h2>Peporemia Ginny</h2>
-                        <h2>$25</h2>
-                    </div>
-                    <button><a href="#">Buy</a></button>
-                </div>
-                <div class="card">
-                    <img src="../assets/image 8.png" alt="">
-                    <div class="details">
-                        <h2>Peporemia Ginny</h2>
-                        <h2>$25</h2>
-                    </div>
-                    <button><a href="#">Buy</a></button>
-                </div>
-                <div class="card">
-                    <img src="../assets/image 8.png" alt="">
-                    <div class="details">
-                        <h2>Peporemia Ginny</h2>
-                        <h2>$25</h2>
-                    </div>
-                    <button><a href="#">Buy</a></button>
-                </div>
+            <?php endforeach; ?>
             </div>         
     </div>
     <div class="parallax">
