@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
             // Product deleted successfully
-            header("Location: manageShop.php"); // Redirect back to the manage shop page
+            header("Location: ./shop.php"); // Redirect back to the manage shop page
             exit();
         } else {
             // Error occurred while deleting product
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     // Invalid request method
-    echo "Invalid request method.";
+    
 }
 ?>
 
@@ -72,7 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div> 
             <h4> Manage your shop</h4>
              
-            <?php foreach ($products as $product): ?>
+           <div class="items">
+           <?php foreach ($products as $product): ?>
                 <div class="card">
                     <img src="../uploads/<?php echo $product['product_image']; ?>" alt="">
                     <div class="details">
@@ -86,6 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    
                 </div>
             <?php endforeach; ?>
+           </div>
             <button class="Add"><a  href="./AddItems.php">Add new Item</a></button>   
 
             </div>      

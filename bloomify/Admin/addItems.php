@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 if ($stmt->execute()) {
                     // Product added successfully
-                    echo "Product added successfully.";
+                    header("Location: ./shop.php"); 
                 } else {
                     // Error occurred while adding product
                     echo "Error: " . $conn->error;

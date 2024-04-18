@@ -63,7 +63,7 @@ function validateFileUpload($file) {
 }
 
 function moveUploadedFile($file) {
-    $targetDirectory = "../uploads/";
+    $targetDirectory = "../uploads/profile";
     $targetFile = $targetDirectory . basename($file['name']);
     if (move_uploaded_file($file['tmp_name'], $targetFile)) {
         return $targetFile;
